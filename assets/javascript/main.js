@@ -65,11 +65,66 @@ hideDiv();
         $("#favbtnDiv").css("display" , "block")
         displayMovieInfo();
         displayGifs();
+        //displayNearestCinema();
         $("#searchInput").val("");
 
       }
 
 //  ---------------- Function for displaying the movie info ---------------!!!!!
+      function displayNearestCinema(){
+            var flmID = null; 
+            getFilmId(movieTitle,release);
+
+            function getFilmID(str,date) {
+              if (str.length == 0) { 
+                  return;
+              } else {
+                  var xmlhttp = new XMLHttpRequest();
+                  xmlhttp.onreadystatechange = function() {
+                      if (this.readyState == 4 && this.status == 200){ 
+                        flmID = this.responseText;
+                        getNearestCinema(3);
+                      }
+                  };
+                  xmlhttp.open("GET", "php/getFilmID.php?t="+str+"&d="+ date, true);
+                  xmlhttp.send();
+              }
+            }
+            
+            function getNearestCinema(nub) {
+              if (str.length == 0) { 
+                  return;
+              } else {
+                  var xmlhttp = new XMLHttpRequest();
+                  xmlhttp.onreadystatechange = function() {
+                      if (this.readyState == 4 && this.status == 200) {
+                          var tempCinemas = JSON.parse(this.response);
+                          console.log("OLA SENIOER"+tempCinemas);
+                      }
+                  };
+                  xmlhttp.open("GET", "php/getNearestCinema.php?nub="+nub, true);
+                  xmlhttp.send();
+              }
+            }
+            
+            function filmsNearMe(str,date) {
+              if (str.length == 0) { 
+                  return;
+              } else {
+                  var xmlhttp = new XMLHttpRequest();
+                  xmlhttp.onreadystatechange = function() {
+                      if (this.readyState == 4 && this.status == 200) {
+                          // loop for every cinema and display info on movie!!!!!
+                      }
+                  };
+                  xmlhttp.open("GET", "php/getFilmID.php?t="+str+"&d="+ date, true);
+                  xmlhttp.send();
+              }
+            }
+
+      }
+
+
 
       function displayMovieInfo(){
         
