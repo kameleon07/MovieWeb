@@ -98,8 +98,10 @@ hideDiv();
                   var xmlhttp = new XMLHttpRequest();
                   xmlhttp.onreadystatechange = function() {
                       if (this.readyState == 4 && this.status == 200) {
-                          var tempCinemas = JSON.parse(this.response);
-                          console.log("OLA SENIOER"+tempCinemas);
+                          var tempCinemas = this.response;
+                          for(var i = 0; i <3; i++){
+                            filmsNearMe(flmID,tempCinemas[i],release);
+                          }
                       }
                   };
                   xmlhttp.open("GET", "php/getNearestCinema.php?nub="+nub, true);
@@ -107,17 +109,22 @@ hideDiv();
               }
             }
             
-            function filmsNearMe(str,date) {
+            function filmsNearMe(f,c,d) {
               if (str.length == 0) { 
                   return;
               } else {
                   var xmlhttp = new XMLHttpRequest();
                   xmlhttp.onreadystatechange = function() {
                       if (this.readyState == 4 && this.status == 200) {
-                          // loop for every cinema and display info on movie!!!!!
+                         var data = this.response;
+
+                         var dd = data.showings.Standard.times[0]['start_time'];
+
+                         console.log(dd);
+
                       }
                   };
-                  xmlhttp.open("GET", "php/getFilmID.php?t="+str+"&d="+ date, true);
+                  xmlhttp.open("GET", "php/filmsNearMe?f="+f+"&c="+c+"&d="+ d, true);
                   xmlhttp.send();
               }
             }
