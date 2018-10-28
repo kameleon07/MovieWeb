@@ -4,7 +4,7 @@ $flmid = $_REQUEST["f"]; // 249928
 
 $cinema =  $_REQUEST["c"]; // 44150
 
-$release = $_REQUEST["d"]; // 2018-10-28
+$release ="2018-10-28"; // 2018-10-28
 
 $api = 'cinemaShowTimes/?film_id='.$flmid.'&cinema_id='.$cinema.'&date='.$release.'&sort=popularity';
 
@@ -14,7 +14,7 @@ if($body != null){
 
   $arrayToSearch = json_decode($body,true);
 
-  echo json_encode($arrayToSearch['films'][0]);
+  echo json_encode($arrayToSearch);
 }else{
   echo 'EMPTY';
 }

@@ -65,17 +65,18 @@ hideDiv();
         $("#favbtnDiv").css("display" , "block")
         displayMovieInfo();
         displayGifs();
-        //displayNearestCinema();
         $("#searchInput").val("");
 
       }
 
 //  ---------------- Function for displaying the movie info ---------------!!!!!
-      function displayNearestCinema(){
+      function displayNearestCinema(movieTitle){
+          document.getElementById("toaster").innerHTML = "";
             var flmID = null; 
-            getFilmId(movieTitle,release);
 
-            function getFilmID(str,date) {
+            getFilmID(movieTitle);
+
+            function getFilmID(str) {
               if (str.length == 0) { 
                   return;
               } else {
@@ -86,49 +87,60 @@ hideDiv();
                         getNearestCinema(3);
                       }
                   };
-                  xmlhttp.open("GET", "php/getFilmID.php?t="+str+"&d="+ date, true);
+                  xmlhttp.open("GET", "assets/php/getFilmID.php?t="+str, true);
                   xmlhttp.send();
               }
             }
             
             function getNearestCinema(nub) {
-              if (str.length == 0) { 
+              if (nub.length == 0) { 
                   return;
               } else {
                   var xmlhttp = new XMLHttpRequest();
                   xmlhttp.onreadystatechange = function() {
                       if (this.readyState == 4 && this.status == 200) {
-                          var tempCinemas = this.response;
+                          console.log(this.response);
+                          var tempCinemas = JSON.parse(this.response);
+                          console.log(tempCinemas);
                           for(var i = 0; i <3; i++){
-                            filmsNearMe(flmID,tempCinemas[i],release);
+                            filmsNearMe(flmID,tempCinemas[i]);
                           }
                       }
                   };
-                  xmlhttp.open("GET", "php/getNearestCinema.php?nub="+nub, true);
+                  xmlhttp.open("GET", "assets/php/getNearestCinema.php?nub="+nub, true);
                   xmlhttp.send();
               }
             }
             
-            function filmsNearMe(f,c,d) {
-              if (str.length == 0) { 
+            function filmsNearMe(f,c) {
+              if (f.length == 0 ||c.length == 0) { 
                   return;
               } else {
                   var xmlhttp = new XMLHttpRequest();
                   xmlhttp.onreadystatechange = function() {
                       if (this.readyState == 4 && this.status == 200) {
-                         var data = this.response;
+                         myDATA = JSON.parse(this.response);
 
-                         var dd = data.showings.Standard.times[0]['start_time'];
+                         var stbbe = "";
+                         
+                         console.log(myDATA);
+  
+                        stbbe += '<div id="wrapper2">';
+                        stbbe += '<h2>'+myDATA.cinema.cinema_name+'</h2>';
+                        stbbe += '<div class="row">';
+                        stbbe += '<p>'+myDATA.films[0].showings.Standard.times[0].start_time+'</p>';
+                        stbbe += '<p>'+myDATA.films[0].showings.Standard.times[1].start_time+'</p>';
+                        stbbe += '<p>'+myDATA.films[0].showings.Standard.times[2].start_time+'</p>';
+                        stbbe += '</div>';
 
-                         console.log(dd);
 
+                        document.getElementById("toaster").innerHTML += stbbe;
                       }
                   };
-                  xmlhttp.open("GET", "php/filmsNearMe?f="+f+"&c="+c+"&d="+ d, true);
+                  xmlhttp.open("GET", "assets/php/filmsNearMe.php?f="+""+f+"&c="+""+c , true);
                   xmlhttp.send();
               }
             }
-
       }
 
 
@@ -159,7 +171,7 @@ hideDiv();
               release = response.Released;
               plot = response.Plot;
               poster = response.Poster;
-             
+              
                 var overview = JSON.stringify(response);
 
                 //  ---------------- Dynamically write to Divs ---------------!!!!!
@@ -180,7 +192,8 @@ hideDiv();
           $("#playDiv").html("<iframe width='560' height='315' src='https://youtube.com/embed?listType=search&list=" +
            movie + "+trailer' frameborder='0' allowfullscreen></iframe>");
 
-         
+
+           displayNearestCinema(movieTitle);
 
 
             });// ends response function

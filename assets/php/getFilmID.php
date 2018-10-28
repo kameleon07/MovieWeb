@@ -1,7 +1,6 @@
 <?php
 
 $flmTxt = $_REQUEST["t"];
-$release = $_REQUEST["d"];
 
 function toSearchable($text){
 	if(strpos($text, ' ') !== false){
@@ -9,7 +8,6 @@ function toSearchable($text){
 	}
 	return $text;
 }
-
 
 $flmTxt = toSearchable($flmTxt); 
 
@@ -19,14 +17,7 @@ include 'login.php';
 
 
 function getValidID($arrayToSearch){
-
-    foreach ($arrayToSearch['films'] as $key => $value) {
-        if ($value['release_dates']['release_date'] == $release){
-        	return $value['film_id']; 
-        }
-    }
-    
-    return 0; 
+    return $arrayToSearch['films'][0]['film_id'];
 }
 
 if($body != null){
@@ -38,6 +29,7 @@ if($body != null){
 }
 
 /*
+
 $headers = explode("\r\n", $headers);
 $headers = array_filter($headers);
 
@@ -62,7 +54,10 @@ $response = json_decode($body, true);
       exit();
   }
 
-
+/*
+{"films":[{"film_id":249928,"imdb_id":1727824,"film_name":"Bohemian Rhapsody","other_titles":{"EN":"Bohemian Rhapsody"},"release_dates":[{"release_date":"2018-10-24","notes":"GBR"}],"timescount":29162,"duration":135,"age_rating":[{"rating":"12A ","age_rating_image":"https:\/\/assets.movieglu.com\/age_rating_logos\/uk\/12a.png","age_advisory":"moderate sex references, drug references, infrequent strong language"}],"images":{"poster":{"1":{"image_orientation":"portrait","region":"US","medium":{"film_image":"https:\/\/image.movieglu.com\/249928\/249928h1.jpg","width":200,"height":300}}},"still":{"2":{"image_orientation":"landscape","medium":{"film_image":"https:\/\/image.movieglu.com\/249928\/249928h2.jpg","width":300,"height":199}}}}},{"film_id":277833,"imdb_id":1727824,"film_name":"Bohemian Rhapsody IMAX 2D","release_dates":[{"release_date":"2018-10-24","notes":"GBR"}],"timescount":1456,"duration":135,"age_rating":[{"rating":"12A ","age_rating_image":"https:\/\/assets.movieglu.com\/age_rating_logos\/uk\/12a.png","age_advisory":""}],"images":{"poster":{"1":{"image_orientation":"portrait","region":"US","medium":{"film_image":"https:\/\/image.movieglu.com\/277833\/277833h1.jpg","width":200,"height":300}}},"still":{"2":{"image_orientation":"landscape","medium":{"film_image":"https:\/\/image.movieglu.com\/277833\/277833h2.jpg","width":300,"height":199}}}}}],"status":{"count":2,"state":"OK","method":"filmLiveSearch","message":null,"request_method":"GET","version":"STUD_30v200","territory":"UK","device_datetime_sent":"2018-10-28 10:32:13","device_datetime_used":"2018-10-28 10:32:13"}}249928
+HTTP/1.1 200 OK
 */
+
 ?>
 

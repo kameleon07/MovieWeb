@@ -4,9 +4,9 @@
 ####################
 // You can find the details below in the email you received when you registered for a MovieGlu evaluation account.
 $api_endpoint = 'https://api-gate2.movieglu.com/';
-$username = 'BLUE'; // Example: $username = 'ABCD';
-$api_key = 'UDtPIUoevy7oi5Tviv5Um97SkBPru2J292KWeYSs';  //Example: $api_key = 'AbCdEFG7CuTTc6KX76mI5aAoGtqbrGW2ga6B4jRg';
-$basic_authorization = 'Basic QkxVRTp3aTVFU2k3R0FrV0g='; // Example: $basic_authorization = 'Basic UHSYGF4xNTpNOHdJQllxckYyN3y=';
+$username = 'STUD_30'; // Example: $username = 'ABCD';
+$api_key = 'eZDXd2WFBZ6XwH02EuGSx71cSNTBjKB05qN1BlGJ';  //Example: $api_key = 'AbCdEFG7CuTTc6KX76mI5aAoGtqbrGW2ga6B4jRg';
+$basic_authorization = 'Basic U1RVRF8zMDpPa0dyWTJuSVpPbjU='; // Example: $basic_authorization = 'Basic UHSYGF4xNTpNOHdJQllxckYyN3y=';
 
 $territory = 'UK'; // Territory chosen as part of your evaluation key request  (Options: UK, FR, ES, DE, US, CA, IE, IN)
 $api_version = 'v200'; // API Version for evaluation - check documentation for later versions
