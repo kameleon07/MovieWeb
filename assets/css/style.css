@@ -27,7 +27,7 @@ h1 {
 }
 
 #titleID p:after {
-    content: attr(data-shadow-text);
+   
     color: rgba(0,0,0,.35);
     text-shadow: none;
     position: absolute;
